@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v6.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v6.0": {
+      "silkroad_taxi_timer/1.0.0": {
+        "runtime": {
+          "silkroad_taxi_timer.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "silkroad_taxi_timer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
