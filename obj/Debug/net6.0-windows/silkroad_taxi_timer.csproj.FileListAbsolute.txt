@@ -1,0 +1,16 @@
+D:\GitSilkroadTimer\silkroad_taxi_timer\bin\Debug\net6.0-windows\silkroad_taxi_timer.exe
+D:\GitSilkroadTimer\silkroad_taxi_timer\bin\Debug\net6.0-windows\silkroad_taxi_timer.deps.json
+D:\GitSilkroadTimer\silkroad_taxi_timer\bin\Debug\net6.0-windows\silkroad_taxi_timer.runtimeconfig.json
+D:\GitSilkroadTimer\silkroad_taxi_timer\bin\Debug\net6.0-windows\silkroad_taxi_timer.dll
+D:\GitSilkroadTimer\silkroad_taxi_timer\bin\Debug\net6.0-windows\silkroad_taxi_timer.pdb
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.Form1.resources
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.csproj.GenerateResource.cache
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.GeneratedMSBuildEditorConfig.editorconfig
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.AssemblyInfoInputs.cache
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.AssemblyInfo.cs
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.csproj.CoreCompileInputs.cache
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.dll
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\refint\silkroad_taxi_timer.dll
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.pdb
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\silkroad_taxi_timer.genruntimeconfig.cache
+D:\GitSilkroadTimer\silkroad_taxi_timer\obj\Debug\net6.0-windows\ref\silkroad_taxi_timer.dll
