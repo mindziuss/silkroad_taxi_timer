@@ -3,13 +3,15 @@
 
 #include "framework.h"
 #include "silkroad_taxi_timer.h"
-
-#define MAX_LOADSTRING 100
+#include "Paint.h"
 
 // Global Variables:
 HINSTANCE hInst;                                // current instance
-WCHAR szTitle[MAX_LOADSTRING];                  // The title bar text
-WCHAR szWindowClass[MAX_LOADSTRING];            // the main window class name
+WCHAR overlayTitle[100] = L"Overlay";                  // The title bar txt
+char targetWindow[100] = "Origin";
+int width, height, x ,y;
+HWND overlayHWND, targetHWND;
+Paint paint = Paint();
 
 // Forward declarations of functions included in this code module:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -28,28 +30,46 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Place code here.
 
     // Initialize global strings
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_SILKROADTAXITIMER, szWindowClass, MAX_LOADSTRING);
+
     MyRegisterClass(hInstance);
 
+    targetHWND = FindWindowA(0, targetWindow);
+
+    //calc size of window
+    if (targetHWND) {
+        RECT rect;
+
+        GetWindowRect(targetHWND, &rect);
+
+        width = rect.right - rect.left;
+        height = rect.bottom - rect.top ;
+    }
+    else {
+        return FALSE;
+    }
     // Perform application initialization:
     if (!InitInstance (hInstance, nCmdShow))
     {
         return FALSE;
     }
 
-    HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_SILKROADTAXITIMER));
-
+    paint = Paint(overlayHWND, targetHWND, width, height);
     MSG msg;
 
     // Main message loop:
     while (GetMessage(&msg, nullptr, 0, 0))
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
+        RECT rect;
+
+        GetWindowRect(targetHWND, &rect);
+        width = rect.right - rect.left;
+        height = rect.bottom - rect.top;
+        
+        SetWindowPos(overlayHWND, HWND_TOPMOST, rect.left, rect.top, 0, 0, 0);
+        TranslateMessage(&msg);
+        DispatchMessage(&msg);
+
+        MoveWindow(overlayHWND, rect.left, rect.top, width, height, true);
     }
 
     return (int) msg.wParam;
@@ -73,12 +93,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.cbClsExtra     = 0;
     wcex.cbWndExtra     = 0;
     wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_SILKROADTAXITIMER));
+    wcex.hIcon          = 0;
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_SILKROADTAXITIMER);
-    wcex.lpszClassName  = szWindowClass;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.hbrBackground  = CreateSolidBrush(RGB(0, 0, 0));
+    wcex.lpszMenuName   = overlayTitle;
+    wcex.lpszClassName  = overlayTitle;
+    wcex.hIconSm        = 0;
 
     return RegisterClassExW(&wcex);
 }
@@ -95,18 +115,19 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   hInst = hInstance; // Store instance handle in our global variable
+    hInst = hInstance; // Store instance handle in our global variable
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+    HWND overlayHWND = CreateWindowExW(WS_EX_TOPMOST | WS_EX_TRANSPARENT | WS_EX_LAYERED , overlayTitle, overlayTitle, WS_POPUP,
+      1, 1, width, height, nullptr, nullptr, hInstance, nullptr);
 
-   if (!hWnd)
+   if (!overlayHWND)
    {
       return FALSE;
    }
+   SetLayeredWindowAttributes(overlayHWND, RGB(0, 0, 0), 0, LWA_COLORKEY);
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+   ShowWindow(overlayHWND, nCmdShow);
+   UpdateWindow(overlayHWND);
 
    return TRUE;
 }
@@ -121,60 +142,18 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  WM_DESTROY  - post a quit message and return
 //
 //
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT CALLBACK WndProc(HWND overlayHWND, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    case WM_COMMAND:
-        {
-            int wmId = LOWORD(wParam);
-            // Parse the menu selections:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
     case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: Add any drawing code that uses hdc here...
-            EndPaint(hWnd, &ps);
-        }
+        paint.render();
         break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
     default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+        return DefWindowProc(overlayHWND, message, wParam, lParam);
     }
     return 0;
-}
-
-// Message handler for about box.
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-    UNREFERENCED_PARAMETER(lParam);
-    switch (message)
-    {
-    case WM_INITDIALOG:
-        return (INT_PTR)TRUE;
-
-    case WM_COMMAND:
-        if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-        {
-            EndDialog(hDlg, LOWORD(wParam));
-            return (INT_PTR)TRUE;
-        }
-        break;
-    }
-    return (INT_PTR)FALSE;
 }

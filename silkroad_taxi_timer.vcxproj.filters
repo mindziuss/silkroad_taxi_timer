@@ -27,9 +27,15 @@
     <ClInclude Include="silkroad_taxi_timer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Paint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="silkroad_taxi_timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Paint.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -45,5 +51,8 @@
     <Image Include="silkroad_taxi_timer.ico">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>
