@@ -1,0 +1,6 @@
+D:\GitSilkroadTimer\silkroad_taxi_timer\x64\Debug\silkroad_taxi_timer.exe
+D:\GitSilkroadTimer\silkroad_taxi_timer\x64\Debug\silkroad_taxi_timer.vcxproj.CopyComplete
+D:\GitSilkroadTimer\silkroad_taxi_timer\x64\Debug\D3DCompiler_43.dll
+D:\GitSilkroadTimer\silkroad_taxi_timer\x64\Debug\d3dx9d_43.dll
+D:\GitSilkroadTimer\silkroad_taxi_timer\x64\Debug\d3dx10d_43.dll
+D:\GitSilkroadTimer\silkroad_taxi_timer\x64\Debug\d3dx11d_43.dll
