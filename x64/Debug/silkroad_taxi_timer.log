@@ -1,5 +1,2 @@
-﻿  Paint.cpp
-D:\GitSilkroadTimer\silkroad_taxi_timer\Paint.cpp(61,35): warning C4267: 'argument': conversion from 'size_t' to 'INT', possible loss of data
-  silkroad_taxi_timer.cpp
-  Generating Code...
+﻿  silkroad_taxi_timer.cpp
   silkroad_taxi_timer.vcxproj -> D:\GitSilkroadTimer\silkroad_taxi_timer\x64\Debug\silkroad_taxi_timer.exe

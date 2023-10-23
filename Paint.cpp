@@ -1,4 +1,5 @@
 #include "Paint.h"
+#include <string>
 
 int Paint::init(HWND hWND) {
 	if (FAILED(Direct3DCreate9Ex(D3D_SDK_VERSION, &object))) {
@@ -16,6 +17,17 @@ int Paint::init(HWND hWND) {
 	parameters.EnableAutoDepthStencil = TRUE;
 	parameters.AutoDepthStencilFormat = D3DFMT_D16;
 
+	HRESULT res = object->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWND, D3DCREATE_HARDWARE_VERTEXPROCESSING, &parameters, 0, &device);
+
+	if (FAILED(res)) {
+		//std::wstring ws(DXGetErrorString(res));
+		//std::string str(ws.begin(), ws.end());
+		//std::wstring ws2(DXGetErrorDescription(res));
+		//std::string str2(ws2.begin(), ws2.end());
+		//std::string error = "Error: " + str + " error description: " + str2;
+		exit(101);
+	}
+
 	object->CreateDeviceEx(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWND, D3DCREATE_HARDWARE_VERTEXPROCESSING, &parameters, 0, &device);
 	D3DXCreateFont(device,50,0,FW_BOLD,1,false,DEFAULT_CHARSET,OUT_DEVICE_PRECIS,ANTIALIASED_QUALITY,DEFAULT_PITCH,L"Comic Sans",&font);
 
@@ -23,9 +35,9 @@ int Paint::init(HWND hWND) {
 }
 
 int Paint::render() {
-	if (&device == nullptr) {
+	if (&device == nullptr)
 		return 1;
-	}
+	
 
 	device->Clear(0,0,D3DCLEAR_TARGET, 0, 1.0f, 0);
 	device->BeginScene();
@@ -40,9 +52,7 @@ int Paint::render() {
 	return 0;
 }
 
-Paint::Paint()
-{
-}
+Paint::Paint() {};
 
 Paint::Paint(HWND overlayHWND, HWND targetHWND, int width, int height)
 {
